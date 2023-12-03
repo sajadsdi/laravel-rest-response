@@ -71,14 +71,13 @@ class RestController extends Controller
     }
 
     /**
-     * Generates a response for successful deletion with the provided message.
+     * Generates a response for successful deletion.
      *
-     * @param string $message
      * @return Response|ResponseFactory
      */
-    public function deleteResponse(string $message = 'delete success!'): Response|ResponseFactory
+    public function deleteResponse(): Response|ResponseFactory
     {
-        return $this->response([], $message, [], 204);
+        return response(null,204);
     }
 
     /**

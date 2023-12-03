@@ -126,7 +126,7 @@ class BannerController extends Controller
     {
         // Your logic here
         //response if banner $id found and deleted
-        return $this->deleteResponse();//you can set custom message
+        return $this->deleteResponse();
         //response if user unauthorized access
         return $this->unauthorizedResponse();//you can set custom message and errors
         //response if user forbidden access
