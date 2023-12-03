@@ -1,0 +1,21 @@
+{
+    "name": "sajadsdi/laravel-rest-response",
+    "description": "Easy return clean response with RESTful api stracture",
+    "type": "laravel-library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Sajadsdi\\LaravelRestResponse\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "SajaD SaeeDi",
+            "email": "thunder11like@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "laravel/framework": "^8"
+    }
+}
