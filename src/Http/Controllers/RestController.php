@@ -29,13 +29,13 @@ class RestController extends Controller
     /**
      * Generates a response with the provided data, message, errors, and status code.
      *
-     * @param array $data
+     * @param mixed $data
      * @param string $message
      * @param array $errors
      * @param int $status
      * @return Response|ResponseFactory
      */
-    public function response(array $data = [], string $message = 'success', array $errors = [], int $status = 200): Response|ResponseFactory
+    public function response(mixed $data = [], string $message = 'success', array $errors = [], int $status = 200): Response|ResponseFactory
     {
         return response([
             'data'    => $data,
@@ -49,11 +49,11 @@ class RestController extends Controller
     /**
      * Generates a response for successful creation with the provided data and message.
      *
-     * @param array $data
+     * @param mixed $data
      * @param string $message
      * @return Response|ResponseFactory
      */
-    public function createResponse(array $data = [], string $message = 'create success!'): Response|ResponseFactory
+    public function createResponse(mixed $data = [], string $message = 'create success!'): Response|ResponseFactory
     {
         return $this->response($data, $message, [], 201);
     }
@@ -61,13 +61,13 @@ class RestController extends Controller
     /**
      * Generates a response for successful update with the provided data and message.
      *
-     * @param array $data
+     * @param mixed $data
      * @param string $message
      * @return Response|ResponseFactory
      */
-    public function updateResponse(array $data = [], string $message = 'update success!'): Response|ResponseFactory
+    public function updateResponse(mixed $data = [], string $message = 'update success!'): Response|ResponseFactory
     {
-        return $this->response($data, $message, [], 200);
+        return $this->response($data, $message, []);
     }
 
     /**
