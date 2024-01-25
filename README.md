@@ -9,6 +9,8 @@ a PHP package that simplifies the generation of clean and consistent responses f
 - **HTTP Status Codes:** Easily set and customize HTTP status codes for different response scenarios.
 - **Common Response Methods:** Predefined methods for common responses such as create, update, delete, not found, forbidden, unauthorized, and bad request.
 - **Easy Integration:** Seamlessly integrate the package with your Laravel controllers for quick and standardized API responses.
+- **Base Request:** Use `BaseRequest` for all request classes to integrate validation or authorization response errors with the package’s response.
+- **CRUD Operations** Use `CrudApi` trait to provide a standard way of handling CRUD operations.
 
 ## Installation
 
@@ -161,6 +163,82 @@ class Controller extends RestController
 }
 ```
 you can also customize api version in any controller by defining getVersion method.
+
+### Implement BaseRequest
+extends `BaseRequest` for all request classes to integrate all response with package response.
+```php
+<?php
+
+namespace App\Http\Requests\Auth;
+
+use Sajadsdi\LaravelRestResponse\Http\Requests\BaseRequest;
+
+class LoginRequest extends BaseRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        //you can set message for authorize error before return false.
+        if(!is_admin){
+            $this->setAuthorizeError('you cant see!');
+            return false;
+        }
+        
+        return true;
+    }
+    //your methods...
+}
+```
+
+### Use CRUD methods and repository
+ensure that your repository class implements the CrudRepositoryInterface. This interface must define the methods for create, read, update, delete, and index.
+Here’s an example of how your repository should look:
+
+```php
+namespace App\Repositories;
+
+use Sajadsdi\LaravelRestResponse\Contracts\CrudRepositoryInterface;
+
+class YourModelRepository implements CrudRepositoryInterface {
+    // Implement the methods
+}
+```
+#### Integrate into a Controller
+After setting up your repository, you can use the CrudApi trait in any controller to manage your resources.
+
+Example:
+```php
+namespace App\Http\Controllers;
+
+use Sajadsdi\LaravelRestResponse\Concerns\CrudApi;
+
+class YourController extends Controller {
+    use CrudApi;
+
+    public function __construct(YourModelRepository $repository) {
+        $this->repository = $repository;
+    }
+    
+    // Now, you have access to createOperation, readOperation, and other methods
+    // for example we implement store function with createOperation function
+    public function store(YourCreateRequest $request)
+    {
+        return $this->createOperation($request->->validated());
+    }
+}
+```
+The `CrudApi` trait provides you with the following methods:
+
+- createOperation($validated_data): Create a new resource.
+- readOperation($validated_id): Retrieve a specific resource by its ID.
+- updateOperation($validated_id, $validated_data): Update a specific resource by its ID.
+- deleteOperation($validated_id): Delete a specific resource by its ID.
+- indexOperation($search, $filter, $sort, $perPage): Retrieve a list of resources, with optional search criteria, filtering, sorting, and pagination.
+
+Each operation will automatically handle successful responses and failures (e.g., bad requests or not found errors).
+
 
 ## Json Response
 all responses are in json format, and they have the same data structure like below.
