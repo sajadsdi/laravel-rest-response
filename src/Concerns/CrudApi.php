@@ -18,6 +18,8 @@ trait CrudApi
 
 
     /**
+     * Create a new resource.
+     *
      * @param array $validated_data
      * @return Response|ResponseFactory
      */
@@ -31,6 +33,8 @@ trait CrudApi
     }
 
     /**
+     * Retrieve a specific resource by its ID.
+     *
      * @param string|int $validated_id
      * @return Response|ResponseFactory
      */
@@ -44,6 +48,8 @@ trait CrudApi
     }
 
     /**
+     * Update a specific resource by its ID.
+     *
      * @param string|int $validated_id
      * @param array $validated_data
      * @return Response|ResponseFactory
@@ -58,6 +64,8 @@ trait CrudApi
     }
 
     /**
+     * Delete a specific resource by its ID.
+     *
      * @param string|int $validated_id
      * @return Response|ResponseFactory
      */
@@ -71,7 +79,9 @@ trait CrudApi
     }
 
     /**
-     * This
+     * Retrieve a list of resources, with optional search criteria,
+     * filtering, sorting, and pagination.
+     *
      * @param int $perPage
      * @param string|null $search
      * @param string|null $filter
