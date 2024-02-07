@@ -30,7 +30,7 @@ trait RestResponse
         return response([
             'data'    => $data,
             'message' => $message,
-            'errors'  => $errors,
+            'errors'  => (object)$errors,
             'status'  => $status,
             'version' => $this->getVersion()
         ], $status);
