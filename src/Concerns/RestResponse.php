@@ -25,10 +25,10 @@ trait RestResponse
      * @param int $status
      * @return Response|ResponseFactory
      */
-    public function response(mixed $data = [], string $message = 'Success!', array $errors = [], int $status = 200): Response|ResponseFactory
+    public function response(array $data = [], string $message = 'Success!', array $errors = [], int $status = 200): Response|ResponseFactory
     {
         return response([
-            'data'    => $data,
+            'data'    => (object)$data,
             'message' => $message,
             'errors'  => (object)$errors,
             'status'  => $status,
